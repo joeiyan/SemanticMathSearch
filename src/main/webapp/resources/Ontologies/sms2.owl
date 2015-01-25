@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY sms "http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#"
+     xml:base="http://www.semanticweb.org/dep04965/ontologies/2015/0/sms"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:sms="http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/dep04965/ontologies/2015/0/sms"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#exponentOf -->
+
+    <owl:ObjectProperty rdf:about="&sms;exponentOf">
+        <rdfs:range rdf:resource="&sms;Constant"/>
+        <rdfs:domain rdf:resource="&sms;Exponentiation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#hasSubExpression -->
+
+    <owl:ObjectProperty rdf:about="&sms;hasSubExpression">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:range rdf:resource="&sms;Expression"/>
+        <rdfs:domain rdf:resource="&sms;Expression"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#isSubExpression -->
+
+    <owl:ObjectProperty rdf:about="&sms;isSubExpression">
+        <owl:inverseOf rdf:resource="&sms;hasSubExpression"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#hasRelationSymbol -->
+
+    <owl:DatatypeProperty rdf:about="&sms;hasRelationSymbol">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&sms;Relation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Addition -->
+
+    <owl:Class rdf:about="&sms;Addition">
+        <rdfs:subClassOf rdf:resource="&sms;Relation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&sms;hasRelationSymbol"/>
+                <owl:hasValue>+</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Constant -->
+
+    <owl:Class rdf:about="&sms;Constant"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Equality -->
+
+    <owl:Class rdf:about="&sms;Equality">
+        <rdfs:subClassOf rdf:resource="&sms;Relation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&sms;hasRelationSymbol"/>
+                <owl:hasValue>=</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Equation -->
+
+    <owl:Class rdf:about="&sms;Equation">
+        <rdfs:subClassOf rdf:resource="&sms;Expression"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&sms;hasSubExpression"/>
+                <owl:someValuesFrom rdf:resource="&sms;Equality"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Exponentiation -->
+
+    <owl:Class rdf:about="&sms;Exponentiation">
+        <rdfs:subClassOf rdf:resource="&sms;Relation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&sms;hasRelationSymbol"/>
+                <owl:hasValue>^</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Expression -->
+
+    <owl:Class rdf:about="&sms;Expression">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="&sms;Constant"/>
+            <rdf:Description rdf:about="&sms;Relation"/>
+            <rdf:Description rdf:about="&sms;Variable"/>
+        </owl:disjointUnionOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Multiplication -->
+
+    <owl:Class rdf:about="&sms;Multiplication">
+        <rdfs:subClassOf rdf:resource="&sms;Relation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&sms;hasRelationSymbol"/>
+                <owl:hasValue>*</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Relation -->
+
+    <owl:Class rdf:about="&sms;Relation"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#TestEquation -->
+
+    <owl:Class rdf:about="&sms;TestEquation">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&sms;hasSubExpression"/>
+                        <owl:someValuesFrom rdf:resource="&sms;Expression"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&sms;hasRelationSymbol"/>
+                        <owl:hasValue>=</owl:hasValue>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Variable -->
+
+    <owl:Class rdf:about="&sms;Variable"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Constant_0 -->
+
+    <owl:NamedIndividual rdf:about="&sms;Constant_0">
+        <rdf:type rdf:resource="&sms;Constant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Constant_1 -->
+
+    <owl:NamedIndividual rdf:about="&sms;Constant_1">
+        <rdf:type rdf:resource="&sms;Constant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Constant_2 -->
+
+    <owl:NamedIndividual rdf:about="&sms;Constant_2">
+        <rdf:type rdf:resource="&sms;Constant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Constant_a -->
+
+    <owl:NamedIndividual rdf:about="&sms;Constant_a">
+        <rdf:type rdf:resource="&sms;Constant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Constant_b -->
+
+    <owl:NamedIndividual rdf:about="&sms;Constant_b">
+        <rdf:type rdf:resource="&sms;Constant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Constant_c -->
+
+    <owl:NamedIndividual rdf:about="&sms;Constant_c">
+        <rdf:type rdf:resource="&sms;Constant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#LinearEquation -->
+
+    <owl:NamedIndividual rdf:about="&sms;LinearEquation">
+        <rdf:type rdf:resource="&sms;Equation"/>
+        <hasSubExpression rdf:resource="&sms;Linear_Equation_Equality"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Linear_Equation_Addition -->
+
+    <owl:NamedIndividual rdf:about="&sms;Linear_Equation_Addition">
+        <rdf:type rdf:resource="&sms;Addition"/>
+        <hasRelationSymbol>+</hasRelationSymbol>
+        <hasSubExpression rdf:resource="&sms;Constant_b"/>
+        <hasSubExpression rdf:resource="&sms;Linear_Equation_Multiplication"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Linear_Equation_Equality -->
+
+    <owl:NamedIndividual rdf:about="&sms;Linear_Equation_Equality">
+        <rdf:type rdf:resource="&sms;Equality"/>
+        <hasRelationSymbol rdf:datatype="&xsd;string">=</hasRelationSymbol>
+        <hasSubExpression rdf:resource="&sms;Constant_0"/>
+        <hasSubExpression rdf:resource="&sms;Linear_Equation_Addition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Linear_Equation_Multiplication -->
+
+    <owl:NamedIndividual rdf:about="&sms;Linear_Equation_Multiplication">
+        <rdf:type rdf:resource="&sms;Multiplication"/>
+        <hasRelationSymbol>*</hasRelationSymbol>
+        <hasSubExpression rdf:resource="&sms;Constant_a"/>
+        <hasSubExpression rdf:resource="&sms;Variable_x"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Quadirc_Term -->
+
+    <owl:NamedIndividual rdf:about="&sms;Quadirc_Term">
+        <rdf:type rdf:resource="&sms;Exponentiation"/>
+        <hasSubExpression rdf:resource="&sms;Constant_2"/>
+        <exponentOf rdf:resource="&sms;Constant_2"/>
+        <hasSubExpression rdf:resource="&sms;Variable_x"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#QuadricEquation -->
+
+    <owl:NamedIndividual rdf:about="&sms;QuadricEquation">
+        <rdf:type rdf:resource="&sms;Equation"/>
+        <hasSubExpression rdf:resource="&sms;Quadric_Equation_Equality"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Quadric_Equation_Addition -->
+
+    <owl:NamedIndividual rdf:about="&sms;Quadric_Equation_Addition">
+        <rdf:type rdf:resource="&sms;Addition"/>
+        <hasSubExpression rdf:resource="&sms;Linear_Equation_Addition"/>
+        <hasSubExpression rdf:resource="&sms;Quadric_Equation_Multiplication"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Quadric_Equation_Equality -->
+
+    <owl:NamedIndividual rdf:about="&sms;Quadric_Equation_Equality">
+        <rdf:type rdf:resource="&sms;Equality"/>
+        <hasSubExpression rdf:resource="&sms;Constant_0"/>
+        <hasSubExpression rdf:resource="&sms;Quadric_Equation_Addition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Quadric_Equation_Multiplication -->
+
+    <owl:NamedIndividual rdf:about="&sms;Quadric_Equation_Multiplication">
+        <rdf:type rdf:resource="&sms;Multiplication"/>
+        <hasSubExpression rdf:resource="&sms;Constant_c"/>
+        <hasSubExpression rdf:resource="&sms;Quadirc_Term"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#Variable_x -->
+
+    <owl:NamedIndividual rdf:about="&sms;Variable_x">
+        <rdf:type rdf:resource="&sms;Variable"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+
