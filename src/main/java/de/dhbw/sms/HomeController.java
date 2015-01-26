@@ -1,5 +1,6 @@
 package de.dhbw.sms;
 
+import java.util.List;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.dhbw.sms.services.IAbstractSyntaxTreeResult;
 import de.dhbw.sms.services.InputParser;
+import de.dhbw.sms.services.LiteralHelper;
 import de.dhbw.sms.services.MathMLFactory;
 import de.dhbw.sms.services.OntologyProvider;
 
@@ -111,6 +113,33 @@ public class HomeController {
 		{
 			String mathml = getMathMLFactory().getMathML(parserResult.getAbstractSyntaxTree());
 			result.setOutput(mathml);
+			result.setLiterals("");
+			List<String> literals = LiteralHelper.getNonNumericLiterals(parserResult.getAbstractSyntaxTree());
+			String literalOutput = "<table>";
+			for(String literal : literals)
+			{
+				literalOutput=literalOutput 
+						+ "<tr>"
+						+ "<td>"
+						+ "<div id=\"literal_"+literal+"\">"
+						+ "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+						+ "<mi>"+literal+"<mi>"
+						+ "</math> "
+						+ "</div>"
+						+ "</td>"
+						+ "<td>"
+						+ "<div id=\"radio_"+literal+"\" style=\"font-size=16px\">"
+						+ "<input type=\"radio\" id=\"radio_constant_"+literal+"\" name=\"radio"+literal+"\" checked=\"checked\">"
+						+ "<label for=\"radio_constant_"+literal+"\">Constant</label>"
+						+ "<input type=\"radio\" id=\"radio_variable_"+literal+"\" name=\"radio"+literal+"\">"
+						+ "<label for=\"radio_variable_"+literal+"\">Variable</label>"
+						+ "</div>"
+						+ "</td>"
+						+ "</tr>";
+			}
+			literalOutput=literalOutput+"</table>";
+			result.setLiterals(literalOutput);
+			result.setLiteralList(literals);
 		}
 		else
 			result.setOutput("<math xmlns=\"http://www.w3.org/1998/Math/MathML\"></math>");
@@ -119,7 +148,7 @@ public class HomeController {
 	
 	private void createOntologyResult(IAbstractSyntaxTreeResult parserResult)
 	{
-		ontologyProvider.initialize(servletContext.getRealPath("/resources/Ontologies/sms2.owl"));
+		ontologyProvider.initialize(servletContext.getRealPath("/resources/Ontologies/sms3.owl"));
 		if(parserResult.hasParsed())
 			ontologyProvider.searchFor(parserResult.getAbstractSyntaxTree());
 	}

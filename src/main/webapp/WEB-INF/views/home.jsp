@@ -14,12 +14,15 @@
   	    var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
   	    var math = null;                // the element jax for the math output.
   	    var input = $("search");
+  	    var literals = null;
+  	    //var literals = null;
 
   	    //
   	    //  Get the element jax when MathJax has produced it.
   	    //
   	    QUEUE.Push(function () {
   	      math = MathJax.Hub.getAllJax("math_expression")[0];
+  	      
   	    });
   	    
   	    window.onNewText = function() {
@@ -35,6 +38,11 @@
   	    	url: 'ajax.html',
   	    	success : function(data) {
   	    		console.log(data);
+  	    		$("#literals").html(data.literals);
+  	    		literals = data.literalList;
+  	    		jQuery.each(data.literalList, function() {
+  	    		  $("#radio_" + this).buttonset();
+  	    		});
   	    		QUEUE.Push(["Text",math, data.output ]); 	    		
   	    	},
   	    	error:function(data,status,er) { 
@@ -55,6 +63,7 @@
  </form>
 </div>
 <div id="math_expression"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></div>
+<div id="literals"></div>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
