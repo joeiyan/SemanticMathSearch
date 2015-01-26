@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import de.dhbw.sms.services.IAbstractSyntaxTreeResult;
 import de.dhbw.sms.services.InputParser;
@@ -29,7 +30,7 @@ import de.dhbw.sms.services.OntologyProvider;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class HomeController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	

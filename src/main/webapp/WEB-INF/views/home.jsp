@@ -59,7 +59,7 @@
 </math> -->
 <div id="math_input">
  <form method="get" onkeyup="onNewText()" id="search">
-  <input name="q" type="text" size="40" placeholder="Search..."  id="search_input"/>
+  <input type="text" size="40" placeholder="Search..."  id="search_input" onPaste="" onkeydown="if (event.keyCode == 13) return false"/>
  </form>
 </div>
 <div id="math_expression"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></div>
