@@ -153,9 +153,15 @@ public class OntologyProvider {
             for(String variableName : variableList)
             {
             	RDFNode l = soln.get(variableName) ;       // Get a result variable by name.
-            	logger.info("{}:{}",variableName, l.toString());
+          
             	if(l != null)
-            		retVariables.put(variableName, l.toString());
+            	{
+            		String prefix = "http://www.semanticweb.org/dep04965/ontologies/2015/0/sms#";
+            		String variableValue = l.toString();
+            		variableValue = variableValue.replaceFirst(prefix, "");
+            		retVariables.put(variableName, variableValue);
+            		logger.info("{}:{}",variableName, variableValue);
+            	}
             }
             retSolutions.add(retVariables);
           }

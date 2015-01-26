@@ -46,6 +46,7 @@
   	#literals {
   		margin 0 auto;
   		text-align: center;
+  		width: 200px;
   	}
   	
   	#literals .div {
@@ -60,6 +61,10 @@
   	
   	.ui-button-text {
   	font-size: 66%;
+  	}
+  	
+  	#main_search {
+  		margin 0 auto;
   	}
 }
   	

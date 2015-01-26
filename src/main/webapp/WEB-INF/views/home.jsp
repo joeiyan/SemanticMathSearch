@@ -57,13 +57,26 @@
 <!-- <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi>a</mi><mo>&#x2260;</mo><mn>0</mn>
 </math> -->
+<table align="center">
+<tr>
+ <td>
 <div id="math_input">
  <form method="get" onkeyup="onNewText()" id="search">
   <input type="text" size="40" placeholder="Search..."  id="search_input" onPaste="" onkeydown="if (event.keyCode == 13) return false"/>
  </form>
 </div>
-<div id="math_expression"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></div>
+ </td>
+ <td  rowspan="2" valign="top">
 <div id="literals"></div>
+</td>
+ 
+</tr>
+<tr>
+<td>
+<div id="math_expression"><math xmlns="http://www.w3.org/1998/Math/MathML"></math></div>
+</td>
+</tr>
+</table>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
